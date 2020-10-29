@@ -46,7 +46,7 @@ jobs:
 
       # https://github.com/android-actions/setup-android
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: FAIMS/setup-android@v2
 
       # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-java-with-gradle
       - name: Cache Gradle packages
