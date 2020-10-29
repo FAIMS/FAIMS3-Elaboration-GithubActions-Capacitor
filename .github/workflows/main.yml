@@ -102,6 +102,14 @@ jobs:
       # https://forum.ionicframework.com/t/how-to-build-apk-from-capacitor-ionic-poject-without-using-android-studio/177814/7
       - run: cd android && ./gradlew assembleDebug
       - run: cp "$(find . -name '*.apk')" .
+      - run: npm run dist
+      - run: cp "$(find . -name '*.deb')" .
+      - name: Archive deb
+        uses: actions/upload-artifact@v2
+        with:
+          name: ubuntu-deb
+          path: |
+            ./*.deb
       - name: Archive build
         uses: actions/upload-artifact@v2
         with:
