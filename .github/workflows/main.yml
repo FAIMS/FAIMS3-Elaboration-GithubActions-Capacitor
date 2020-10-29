@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -46,7 +46,7 @@ jobs:
 
       # https://github.com/android-actions/setup-android
       - name: Setup Android SDK
-        uses: FAIMS/setup-android@v2
+        uses: FAIMS/setup-android@v2.1.0-prerelease
 
       # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-java-with-gradle
       - name: Cache Gradle packages
