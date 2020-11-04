@@ -13,7 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  ubuntu-apk-browserstack-job:
     # The type of runner that the job will run on
     # https://github.com/Apple-Actions/Example-iOS/blob/master/.github/workflows/test.yml
     runs-on: ubuntu-latest
@@ -122,4 +122,46 @@ jobs:
           name: apks
           path: |
             ./*.apk
+      # https://www.browserstack.com/docs/automate/selenium/github-actions#set-up-a-github-workflow-to-run-browserstack-tests
+      # Thereafter, invoke setup-env BrowserStack Action to set up 
+      # environment variables in the runner
+      - name: 'BrowserStack Env Setup'
+        uses: 'browserstack/github-actions/setup-env@master'
+        with:
+          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          # build-name: (Optional) Sets the environment variable BROWSERSTACK_BUILD_NAME
+          build-name: 'BUILD_INFO'
+          # project-name: (Optional) Sets the environment variable BROWSERSTACK_PROJECT_NAME
+          project-name: 'REPO_NAME'
+      # Invoke setup-local BrowserStack Action to set up a tunnel connection 
+      # between the GitHub Actions runner environment and the BrowserStack 
+      # device cloud so that the application server on the runner environment 
+      # can be accessed by the browsers in BrowserStack's device cloud
+      - name: 'BrowserStackLocal Setup'
+        uses: 'browserstack/github-actions/setup-local@master'
+        with:
+          local-testing: start
+          local-identifier: random
+
+      # https://blog.mindorks.com/github-actions-for-android
       
+
+      # https://raw.githubusercontent.com/shreyanshp/upload-app-browserstack/master/README.md
+      - uses: actions/upload-app-browserstack@v1
+        with:
+          app-path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
+          browserstack-username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          browserstack-accesskey: ${{ secrets.BROWSERSTACK_ACCESSKEY }}
+      # Note: To be able to run these test scripts in the GitHub Actions runner environment, you have to add a step(s) in the workflow to install the required Selenium bindings for the language of your choice.
+      # https://www.browserstack.com/docs/automate/selenium/github-actions#sample-github-workflow-showing-a-browserstack-test
+
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        run: node testLearnReact.js  # See sample test script above
+
+      # ***IMPORTANT***
+      # If you do not stop the binary after the completion of your tests, the logs will not be uploaded as artifacts.
+      - name: 'BrowserStackLocal Setup'
+        uses: 'browserstack/github-actions/setup-local@master'
+        with:
+          local-testing: stop
