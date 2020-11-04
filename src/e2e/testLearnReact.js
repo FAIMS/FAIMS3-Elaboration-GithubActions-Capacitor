@@ -10,7 +10,9 @@ const desiredCaps = {
     'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
 
     // Set URL of the application under test
-    'app': process.env.browserstack.appUrl,
+    // https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id
+    'app': 'ElaborationApp',
+
 
     // Specify device and os_version for testing
     'device': 'Google Pixel 3',
