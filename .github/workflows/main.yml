@@ -37,6 +37,14 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-java-with-gradle
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -53,18 +61,11 @@ jobs:
       - name: Setup Android SDK
         uses: FAIMS/setup-android@v2.1.0-prerelease
 
-      # https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-java-with-gradle
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
       
       - run: npm install
       - run: npm run build
       # https://capacitorjs.com/docs/android
-      - run: npx cap add android # not sure this is necessary?
+      
       - run: npx cap sync android
       
       # build local deb
