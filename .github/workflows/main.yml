@@ -137,7 +137,7 @@ jobs:
       # Thereafter, invoke setup-env BrowserStack Action to set up 
       # environment variables in the runner
   browserstack_job:
-    needs: android-job
+    needs: node-deb-android-job
     runs-on: ubuntu-latest
     steps:
       - name: 'BrowserStack Env Setup'
