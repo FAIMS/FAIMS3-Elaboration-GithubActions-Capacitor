@@ -58,7 +58,7 @@ jobs:
           path: |
             build
             android
-  apk-job:
+  android-job:
     needs: node-job
     runs-on: ubuntu-latest
     steps:
