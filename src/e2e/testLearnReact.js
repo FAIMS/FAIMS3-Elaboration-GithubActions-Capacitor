@@ -1,9 +1,8 @@
-let wd = require('wd');
-let assert = require('assert');
-let asserters = wd.asserters;
-let environment = require('./environment.js');
+const wd = require('wd');
+const assert = require('assert');
+const asserters = wd.asserters;
 
-desiredCaps = {
+const desiredCaps = {
     // Set your BrowserStack access credentials
 
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
@@ -27,7 +26,7 @@ desiredCaps = {
 
 // Initialize the remote Webdriver using BrowserStack remote URL
 // and desired capabilities defined above
-driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
+const driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
 
 driver
     .init(desiredCaps)
