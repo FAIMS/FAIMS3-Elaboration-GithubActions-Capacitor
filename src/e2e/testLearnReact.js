@@ -21,7 +21,7 @@ const desiredCaps = {
 
     'project': process.env.BROWSERSTACK_PROJECT_NAME,
     'build': process.env.BROWSERSTACK_BUILD_NAME,
-    'name': 'first_test'
+    'name': 'bbs_first_test'
 };
 
 // Initialize the remote Webdriver using BrowserStack remote URL
