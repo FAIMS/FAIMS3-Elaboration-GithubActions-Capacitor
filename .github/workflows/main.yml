@@ -144,6 +144,7 @@ jobs:
     # needs: node-deb-android-job
     runs-on: ubuntu-latest
     steps:
+
       - name: 'BrowserStack Env Setup'
         uses: 'browserstack/github-actions/setup-env@master'
         with:
@@ -187,6 +188,10 @@ jobs:
       # CustomURL
       # https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id
 
+      # new run, need to check out the repo again.
+      - uses: actions/checkout@v2
+      - run: pwd
+      - run: ls -alR 
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         run: npm run browserstack 
         # Running it from the npm runner rather than node might fix path issues?
