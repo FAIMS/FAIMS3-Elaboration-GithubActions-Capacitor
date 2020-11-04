@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Compile APK, Electron, and Test on BrowserStack
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
@@ -146,13 +146,23 @@ jobs:
 
       # https://blog.mindorks.com/github-actions-for-android
       
+      # curl -u "<username>:<password>" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@/path/to/app/file/Application-debug.apk"
+
+      - name: "Upload APK to Browserstack with curl"
+        run: curl -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk"
+
 
       # https://raw.githubusercontent.com/shreyanshp/upload-app-browserstack/master/README.md
-      - uses: actions/upload-app-browserstack@v1
-        with:
-          app-path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
-          browserstack-username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          browserstack-accesskey: ${{ secrets.BROWSERSTACK_ACCESSKEY }}
+      # TRAP
+      # - uses: actions/upload-app-browserstack@v1
+      #   with:
+      #     app-path: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
+      #     browserstack-username: ${{ secrets.BROWSERSTACK_USERNAME }}
+      #     browserstack-accesskey: ${{ secrets.BROWSERSTACK_ACCESSKEY }}
+
+
+
+
       # Note: To be able to run these test scripts in the GitHub Actions runner environment, you have to add a step(s) in the workflow to install the required Selenium bindings for the language of your choice.
       # https://www.browserstack.com/docs/automate/selenium/github-actions#sample-github-workflow-showing-a-browserstack-test
 
