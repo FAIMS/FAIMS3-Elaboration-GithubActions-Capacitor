@@ -182,15 +182,15 @@ jobs:
       #     username: ${{ secrets.BROWSERSTACK_USERNAME }}
       #     password: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-      # - name: 'BrowserStack Env Setup'
-      #   uses: 'browserstack/github-actions/setup-env@master'
-      #   with:
-      #     username: '${{ secrets.BROWSERSTACK_USERNAME }}'
-      #     access-key: '${{ secrets.BROWSERSTACK_ACCESS_KEY }}'
-      #     # build-name: (Optional) Sets the environment variable BROWSERSTACK_BUILD_NAME
-      #     build-name: 'BUILD_INFO'
-      #     # project-name: (Optional) Sets the environment variable BROWSERSTACK_PROJECT_NAME
-      #     project-name: 'REPO_NAME'
+      - name: 'BrowserStack Env Setup'
+        uses: 'browserstack/github-actions/setup-env@master'
+        with:
+          username: '${{ secrets.BROWSERSTACK_USERNAME }}'
+          access-key: '${{ secrets.BROWSERSTACK_ACCESS_KEY }}'
+          # build-name: (Optional) Sets the environment variable BROWSERSTACK_BUILD_NAME
+          build-name: 'BUILD_INFO'
+          # project-name: (Optional) Sets the environment variable BROWSERSTACK_PROJECT_NAME
+          project-name: 'REPO_NAME'
       # # Invoke setup-local BrowserStack Action to set up a tunnel connection 
       # # between the GitHub Actions runner environment and the BrowserStack 
       # # device cloud so that the application server on the runner environment 
@@ -200,7 +200,7 @@ jobs:
         with:
           local-testing: start
           local-identifier: random
-
+        
       # https://blog.mindorks.com/github-actions-for-android
       
       # curl -u "<username>:<password>" -X POST "https://api-cloud.browserstack.com/app-automate/upload" -F "file=@/path/to/app/file/Application-debug.apk"
