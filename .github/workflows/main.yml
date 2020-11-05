@@ -230,8 +230,8 @@ jobs:
 
       # - run: pwd
       # - run: ls -alR 
-      # - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
-      #   run: npm run browserstack 
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        run: npm run browserstack 
       #   # Running it from the npm runner rather than node might fix path issues?
 
       # # ***IMPORTANT***
