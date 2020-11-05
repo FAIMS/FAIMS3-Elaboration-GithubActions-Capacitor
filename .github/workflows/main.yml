@@ -233,8 +233,8 @@ jobs:
       - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
         run: npm run browserstack 
         env:
-          browserstack-username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          browserstack-accesskey: ${{ secrets.BROWSERSTACK_ACCESSKEY }}
+          BROWSERSTACK-USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK-ACCESSKEY: ${{ secrets.BROWSERSTACK_ACCESSKEY }}
 
       #   # Running it from the npm runner rather than node might fix path issues?
 
