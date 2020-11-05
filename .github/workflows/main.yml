@@ -170,10 +170,9 @@ jobs:
       # run it every time... 
       - run: npm install
       - name: "Upload APK to Browserstack with curl"
-          run: curl -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" \
+        run: curl -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" \
                -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-               -F "file=@./app-debug.apk" \
-               -F "custom_id=ElaborationApp"
+               -F "file=@./app-debug.apk" -F "custom_id=ElaborationApp"
 
 
       # Final part of the path is the custom id above. Should be a variable. Will fix later.
