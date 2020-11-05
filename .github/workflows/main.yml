@@ -195,11 +195,11 @@ jobs:
       # # between the GitHub Actions runner environment and the BrowserStack 
       # # device cloud so that the application server on the runner environment 
       # # can be accessed by the browsers in BrowserStack's device cloud
-      # - name: 'BrowserStackLocal Setup'
-      #   uses: 'browserstack/github-actions/setup-local@master'
-      #   with:
-      #     local-testing: start
-      #     local-identifier: random
+      - name: 'BrowserStackLocal Setup'
+        uses: 'browserstack/github-actions/setup-local@master'
+        with:
+          local-testing: start
+          local-identifier: random
 
       # https://blog.mindorks.com/github-actions-for-android
       
@@ -240,7 +240,7 @@ jobs:
 
       # # ***IMPORTANT***
       # # If you do not stop the binary after the completion of your tests, the logs will not be uploaded as artifacts.
-      # - name: 'BrowserStackLocal Setup'
-      #   uses: 'browserstack/github-actions/setup-local@master'
-      #   with:
-      #     local-testing: stop
+      - name: 'BrowserStackLocal Setup'
+        uses: 'browserstack/github-actions/setup-local@master'
+        with:
+          local-testing: stop

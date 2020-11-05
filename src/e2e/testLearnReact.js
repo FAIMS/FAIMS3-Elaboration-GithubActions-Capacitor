@@ -26,7 +26,7 @@ const desiredCaps = {
     'debug': true
 };
 
-console.log(desiredCaps['browserstack.user'] === undefined)
+console.log(desiredCaps['browserstack.user'].length, desiredCaps['browserstack.key'].length)
 
 // Initialize the remote Webdriver using BrowserStack remote URL
 // and desired capabilities defined above
