@@ -7,7 +7,6 @@ const desiredCaps = {
 
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
-    'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
 
     // Set URL of the application under test
     // https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id
@@ -21,8 +20,8 @@ const desiredCaps = {
     // Set other BrowserStack capabilities
     // You need to invoke the browserstack/github-actions/setup-env@master GitHub Action also in the job where test scripts will run because this Action sets up the environment variables BROWSERSTACK_USERNAME, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_BUILD_NAME and BROWSERSTACK_PROJECT_NAME, which are to be used in your test scripts
 
-    'project': process.env.BROWSERSTACK_PROJECT_NAME,
-    'build': process.env.BROWSERSTACK_BUILD_NAME,
+    // 'project': process.env.BROWSERSTACK_PROJECT_NAME,
+    // 'build': process.env.BROWSERSTACK_BUILD_NAME,
     'name': 'bbs_first_test'
 };
 
