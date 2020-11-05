@@ -4,7 +4,7 @@ const asserters = wd.asserters;
 
 const desiredCaps = {
     // Set your BrowserStack access credentials
-
+    // RTFM!!! https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#using-encrypted-secrets-in-a-workflow
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
 
