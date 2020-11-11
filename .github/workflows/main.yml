@@ -284,7 +284,8 @@ jobs:
         run: |
           echo ::set-output name=error-count::$(grep "Encountered internal error" appium.log | wc -l)
         id: error-count
-      - run: echo "Public build URL: ${{steps.sessions-json.outputs.public_url}}"
+      - run: |
+          echo "Public build URL: ${{steps.sessions-json.outputs.public_url}}"
       - name: "List errors"
         run: |
           echo "::error::Errors encountered"
