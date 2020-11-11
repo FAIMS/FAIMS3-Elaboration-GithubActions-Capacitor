@@ -24,12 +24,10 @@ const desiredCaps = {
     // You need to invoke the browserstack/github-actions/setup-env@master GitHub Action also in the job where test scripts will run because this Action sets up the environment variables BROWSERSTACK_USERNAME, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_BUILD_NAME and BROWSERSTACK_PROJECT_NAME, which are to be used in your test scripts
 
     'project': 'Elaboration Github Workflow',
-    'build': 'Node Android BBS',
-    'name': 'bbs_first_test',
+    'build': process.env.BUILD,
+    'name': process.env.GITHUB_COMMIT_MESSAGE,
     'debug': true
 };
-
-console.log(desiredCaps['browserstack.user'].length, desiredCaps['browserstack.key'].length)
 
 // Initialize the remote Webdriver using BrowserStack remote URL
 // and desired capabilities defined above

@@ -188,9 +188,9 @@ jobs:
           username: '${{ secrets.BROWSERSTACK_USERNAME }}'
           access-key: '${{ secrets.BROWSERSTACK_ACCESS_KEY }}'
           # build-name: (Optional) Sets the environment variable BROWSERSTACK_BUILD_NAME
-          build-name: 'BUILD_INFO'
+          # build-name: 'BUILD_INFO'
           # project-name: (Optional) Sets the environment variable BROWSERSTACK_PROJECT_NAME
-          project-name: 'REPO_NAME'
+          # project-name: 'REPO_NAME'
       # # Invoke setup-local BrowserStack Action to set up a tunnel connection 
       # # between the GitHub Actions runner environment and the BrowserStack 
       # # device cloud so that the application server on the runner environment 
@@ -200,6 +200,8 @@ jobs:
         with:
           local-testing: start
           local-identifier: random
+          local-logging-level: all-logs
+          local-args: --log-file '${{GITHUB_WORKSPACE}}/browserstack.log'
         
       # https://blog.mindorks.com/github-actions-for-android
       
@@ -235,7 +237,8 @@ jobs:
         env:
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-
+          GITHUB_COMMIT_MESSAGE: '${{ github.event.head_commit.message }} - ${{GITHUB_SHA}}'
+          BUILD: '${{GITHUB_REPOSITORY}}'
       #   # Running it from the npm runner rather than node might fix path issues?
 
       # # ***IMPORTANT***
@@ -244,3 +247,26 @@ jobs:
         uses: 'browserstack/github-actions/setup-local@master'
         with:
           local-testing: stop
+
+      # https://github.com/marketplace/actions/curl-axiosjs
+      # Why am I wrapping curl in JS? WHY?
+
+      # - name: 'Get list of recent sessions'
+      #   uses: indiesdev/curl@v1
+      #   with:
+      #     url: "https://api-cloud.browserstack.com/app-automate/builds.json"
+      #     method: 'GET'
+      #     basic-auth:  "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}"
+      # - name: 'Use response'
+      #     run: echo ${{ steps.api.outputs.response }}
+      - run: npm install jq
+      - name: "get build id"
+        run: curl -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" \
+             -X GET "https://api-cloud.browserstack.com/app-automate/builds.json" | \
+             jq -cr '.[][] | select(.name=="${{GITHUB_REPOSITORY}}") | .hashed_id' | \
+             cat | xargs -I{} echo ::set-output name=build_id::{}
+
+
+
+
+
