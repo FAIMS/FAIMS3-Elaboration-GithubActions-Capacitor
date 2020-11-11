@@ -26,7 +26,9 @@ const desiredCaps = {
     'project': 'Elaboration Github Workflow',
     'build': process.env.BUILD,
     'name': process.env.GITHUB_COMMIT_MESSAGE,
-    'debug': true
+    'debug': true,
+    'browserstack.networkLog': true,
+    'browserstack.debug': true
 };
 
 // Initialize the remote Webdriver using BrowserStack remote URL

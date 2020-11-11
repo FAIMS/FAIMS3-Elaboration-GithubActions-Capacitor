@@ -259,12 +259,41 @@ jobs:
       #     basic-auth:  "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}"
       # - name: 'Use response'
       #     run: echo ${{ steps.api.outputs.response }}
-      - run: sudo apt install jq -y 
+      - name: "Install jq to parse curl output"
+        run: sudo apt install jq -y 
       - name: "get build id"
         run: curl --silent --show-error --fail -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}"  -X GET "https://api-cloud.browserstack.com/app-automate/builds.json" | jq -cr '.[][] | select(.name=="${{ github.repository }}") | .hashed_id' |  xargs -I{} echo ::set-output name=BUILD_ID::{}
         id: build-id
       # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions
-      - run: echo "${{ steps.build-id.outputs.BUILD_ID}}"
+      # - run: echo "${{ steps.build-id.outputs.BUILD_ID}}"
+      - name: "Get Sessions of build: ${{ github.repository }}"
+        run: |
+          curl --silent --show-error --fail  -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" -X GET "https://api-cloud.browserstack.com/app-automate/builds/${{steps.build-id.outputs.BUILD_ID}}/sessions.json" > sessions.json
+          cat sessions.json | jq -cr '.[][] | .appium_logs_url' | xargs -I{} curl --silent --show-error --fail  -u "${{ secrets.BROWSERSTACK_USERNAME }}:${{ secrets.BROWSERSTACK_ACCESS_KEY }}" -X GET {} > appium.log
+          cat sessions.json | jq -cr '.[][] | .public_url' | xargs -I{} echo::set-output name=public_url::{}
+        id: sessions-json
+      - name: Archive appium log
+        uses: actions/upload-artifact@v2
+          name: logs
+          path: |
+            ./*.log
+            ./*.json
+
+      - name: "Find errors in appium log"
+        run: |
+          echo ::set-output name=error-count::$(grep "Encountered internal error" appium.log | wc -l)
+        id: error-count
+      - run: echo "Public build URL: ${{steps.sessions-json.outputs.public_url}}"
+      - name: "List errors"
+        run: |
+          echo "::error::Errors encountered"
+          grep "Encountered internal error" appium.log
+          echo "::error::Go to ${{steps.sessions-json.outputs.public_url}} for details"
+        if: ${{ steps.error-count.outputs.error-count > 0}}
+
+
+
+
 
 
 
