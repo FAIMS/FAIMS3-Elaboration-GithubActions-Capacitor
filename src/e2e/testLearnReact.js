@@ -5,13 +5,17 @@ let environment = require('./environment.js');
 
 desiredCaps = {
     // Set your BrowserStack access credentials
+    // https://www.browserstack.com/docs/app-automate/appium/integrations/travis-ci#nodejs
+
 
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
-    'browserstack.localIdentifier': process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
+
+    "browserstack.local" : "true",
+    "browserstack.localIdentifier" : process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
 
     // Set URL of the application under test
-    'app': process.env.browserstack.appUrl,
+    'app': `${process.env.GITHUB_WORKSPACE}`,
 
     // Specify device and os_version for testing
     'device': 'Google Pixel 3',
@@ -27,6 +31,11 @@ desiredCaps = {
 
 // Initialize the remote Webdriver using BrowserStack remote URL
 // and desired capabilities defined above
+//https://stackoverflow.com/questions/15361189/how-to-select-all-other-values-in-an-array-except-the-ith-element
+
+const {user, key, ...restofstuff} = desiredCaps
+
+console.log(restofstuff)
 driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
 
 driver
