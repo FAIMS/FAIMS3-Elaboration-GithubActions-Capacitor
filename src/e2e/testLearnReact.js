@@ -36,9 +36,8 @@ console.log(desiredCaps['browserstack.user'].length, desiredCaps['browserstack.k
 
 //https://stackoverflow.com/questions/15361189/how-to-select-all-other-values-in-an-array-except-the-ith-element
 
-const {user, key, ...restofstuff} = desiredCaps
 
-console.log(restofstuff)
+console.log(desiredCaps)
 
 const driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
 
