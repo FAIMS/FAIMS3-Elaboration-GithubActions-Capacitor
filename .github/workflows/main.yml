@@ -274,6 +274,7 @@ jobs:
         id: sessions-json
       - name: Archive appium log
         uses: actions/upload-artifact@v2
+        with:
           name: logs
           path: |
             ./*.log
