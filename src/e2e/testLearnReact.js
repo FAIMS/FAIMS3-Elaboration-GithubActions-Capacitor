@@ -1,13 +1,10 @@
-let wd = require('wd');
-let assert = require('assert');
-let asserters = wd.asserters;
-let environment = require('./environment.js');
+const wd = require('wd');
+const assert = require('assert');
+const asserters = wd.asserters;
 
-desiredCaps = {
+const desiredCaps = {
     // Set your BrowserStack access credentials
-    // https://www.browserstack.com/docs/app-automate/appium/integrations/travis-ci#nodejs
-
-
+    // RTFM!!! https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#using-encrypted-secrets-in-a-workflow
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY,
 
@@ -15,29 +12,38 @@ desiredCaps = {
     "browserstack.localIdentifier" : process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
 
     // Set URL of the application under test
-    'app': `${process.env.GITHUB_WORKSPACE}`,
+    // https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id
+    'app': 'ElaborationApp',
 
     // Specify device and os_version for testing
     'device': 'Google Pixel 3',
     'os_version': '9.0',
-
+    // 'browserstack.appium_version': '1.6.5',
+    // 'appium_version': '1.6.5',
     // Set other BrowserStack capabilities
     // You need to invoke the browserstack/github-actions/setup-env@master GitHub Action also in the job where test scripts will run because this Action sets up the environment variables BROWSERSTACK_USERNAME, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_BUILD_NAME and BROWSERSTACK_PROJECT_NAME, which are to be used in your test scripts
 
-    'project': process.env.BROWSERSTACK_PROJECT_NAME,
-    'build': process.env.BROWSERSTACK_BUILD_NAME,
-    'name': 'first_test'
+    'project': 'Elaboration Github Workflow',
+    'build': 'Node Android BBS',
+    'name': 'bbs_first_test',
+    'debug': true
 };
+
+console.log(desiredCaps['browserstack.user'].length, desiredCaps['browserstack.key'].length)
 
 // Initialize the remote Webdriver using BrowserStack remote URL
 // and desired capabilities defined above
+
 //https://stackoverflow.com/questions/15361189/how-to-select-all-other-values-in-an-array-except-the-ith-element
 
 const {user, key, ...restofstuff} = desiredCaps
 
 console.log(restofstuff)
-driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
 
+const driver = wd.promiseRemote("http://hub-cloud.browserstack.com/wd/hub");
+
+driver.setImplicitWaitTimeout(5000);
+// http://appium.io/docs/en/commands/session/timeouts/implicit-wait/
 driver
     .init(desiredCaps)
     .then(function () {
@@ -46,19 +52,12 @@ driver
         && asserters.isEnabled, 30000);
     })
     .then(function (learnReact) {
-        return learnReact.click();
+        return assert.notStrictEqual(learnReact.getAttribute("className"), 'App-link')
     })
-    .then(function () {
-        return driver.element('xpath', ("//*[@text='Chrome']"));
+    .then(function (learnReact) {
+        return assert.notStrictEqual('bad', 'App-link')
     })
-    .then(function (chrome) {
-        chrome.click();
-        return chrome.click();
-    })
-    .then(function () {
-        driver.setImplicitWaitTimeout(10000);
-        return assert.notStrictEqual(driver.url(), 'reactjs.org');
-    })
+    
     .fin(function () {
         return driver.quit();
     })
