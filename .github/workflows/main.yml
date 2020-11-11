@@ -201,7 +201,7 @@ jobs:
           local-testing: start
           local-identifier: random
           local-logging-level: all-logs
-          local-args: --log-file '${{GITHUB_WORKSPACE}}/browserstack.log'
+          local-args: --log-file '$GITHUB_WORKSPACE/browserstack.log'
         
       # https://blog.mindorks.com/github-actions-for-android
       
