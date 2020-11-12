@@ -1,6 +1,6 @@
 # FAIMS3-Elaboration-GithubActions-Capacitor
 
-[![Github Action Status](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/workflows/Compile APK, Electron, and Test on BrowserStack/badge.svg)](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/actions)
+[![Github Action Status](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/workflows/Compile%20APK,%20Electron,%20and%20Test%20on%20BrowserStack/badge.svg)](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/actions)
 
 [![BrowserStack Status](https://app-automate.browserstack.com/badge.svg?badge_key=RGgvZ0ZydzFQUXRJd21IYU0rRkFzU09JT3MxNjNkem95ZisrTzBOenk2TT0tLVBuMkNIdWIrU2hvR2JtUG9vbUttSkE9PQ==--946416f8d98dead7fd640032a92be25a4484d160)](https://app-automate.browserstack.com/public-build/RGgvZ0ZydzFQUXRJd21IYU0rRkFzU09JT3MxNjNkem95ZisrTzBOenk2TT0tLVBuMkNIdWIrU2hvR2JtUG9vbUttSkE9PQ==--946416f8d98dead7fd640032a92be25a4484d160)
 
