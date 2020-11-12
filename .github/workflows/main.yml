@@ -285,9 +285,9 @@ jobs:
           echo "Public build URL: ${{steps.sessions-json.outputs.public_url}}"
       - name: "List errors"
         run: |
-          echo "::error::Errors encountered"
+          echo "::error::${{steps.error-count.outputs.error-count}} testing-errors encountered on Browserstack run."
           grep "Encountered internal error" appium.log
-          echo "::error::Go to ${{steps.sessions-json.outputs.public_url}} for details"
+          echo "::error::For details: ${{steps.sessions-json.outputs.public_url}}"
         if: ${{ steps.error-count.outputs.error-count > 0}}
 
 
