@@ -2,9 +2,11 @@
 
 [![Github Action Status](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/workflows/Compile%20APK,%20Electron,%20and%20Test%20on%20BrowserStack/badge.svg)](https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/actions)
 
-[![BrowserStack Status](https://app-automate.browserstack.com/badge.svg?badge_key=RGgvZ0ZydzFQUXRJd21IYU0rRkFzU09JT3MxNjNkem95ZisrTzBOenk2TT0tLVBuMkNIdWIrU2hvR2JtUG9vbUttSkE9PQ==--946416f8d98dead7fd640032a92be25a4484d160)](https://app-automate.browserstack.com/public-build/RGgvZ0ZydzFQUXRJd21IYU0rRkFzU09JT3MxNjNkem95ZisrTzBOenk2TT0tLVBuMkNIdWIrU2hvR2JtUG9vbUttSkE9PQ==--946416f8d98dead7fd640032a92be25a4484d160)
+[![BrowserStack Status](https://app-automate.browserstack.com/badge.svg?badge_key=RGgvZ0ZydzFQUXRJd21IYU0rRkFzU09JT3MxNjNkem95ZisrTzBOenk2TT0tLVBuMkNIdWIrU2hvR2JtUG9vbUttSkE9PQ==--946416f8d98dead7fd640032a92be25a4484d160)](https://app-automate.browserstack.com/builds/7ed91c644c5c9f74788e61dfc8c2b4fbb2a3a061/sessions/94f101a73706d9e5fef2a716bbc20778fea396e8?auth_token=cbeae8a23cec7a6ab6bef3724cc9be6ddf70ace9a699de7b48cbf7d93461751f)
 
 See the action workflow at: https://github.com/FAIMS/FAIMS3-Elaboration-GithubActions-Capacitor-React/actions
+
+See a sample browserstack output dashboard at: https://app-automate.browserstack.com/builds/7ed91c644c5c9f74788e61dfc8c2b4fbb2a3a061/sessions/94f101a73706d9e5fef2a716bbc20778fea396e8?auth_token=cbeae8a23cec7a6ab6bef3724cc9be6ddf70ace9a699de7b48cbf7d93461751f
 
 ## Authors
 
