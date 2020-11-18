@@ -28,3 +28,5 @@ GPL v3 (Though it really should be the [CRAPL](http://matt.might.net/articles/cr
 * Github Actions:
     - Encrypted Secrets https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets
     - Workflow Commands https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions
+* iOS build: https://gist.github.com/UHKim/e284781c985799e39848bf9863337b9c    
+	- https://www.joshmorony.com/deploying-capacitor-applications-to-ios-development-distribution/
