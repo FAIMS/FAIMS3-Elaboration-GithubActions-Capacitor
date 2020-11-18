@@ -72,6 +72,12 @@ jobs:
       - name: create macos keychain
         uses: sinoru/actions-setup-keychain@v1.0
 
+      - name: configure ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+
+
       - name: install fastlane & plugins
         run: bundle install
       
