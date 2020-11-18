@@ -1,7 +1,7 @@
 
 # This is a basic workflow to help you get started with Actions
 
-name: Compile APK, Electron, and Test on BrowserStack
+name: Compile iOS app into .ipa
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the main branch
@@ -68,23 +68,41 @@ jobs:
       # https://capacitorjs.com/docs/android
       
       - run: npx cap sync ios
+     
+      - name: create macos keychain
+        uses: sinoru/actions-setup-keychain@v1.0
+
+      - name: install fastlane & plugins
+        run: bundle install
       
-      # build local deb
-      - run: npm run dist
-      - run: cp "$(find . -name '*.deb')" .
-      - name: Archive deb
-        uses: actions/upload-artifact@v2
+      - name: homebrew & watchman
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew update && brew install watchman
+
+      - name: yarn install
+        run: yarn install
+
+      - name: re-pod
+        run: cd ios && pod deintegrate && pod install && cd ..
+
+      - name: fastlane build
+        run: fastlane ios adhoc build
+
+      # upload failure log if fails
+      - uses: actions/upload-artifact@v1
+        name: upload failure fastlane build log
+        if: failure()
         with:
-          name: ubuntu-deb
-          path: |
-            ./*.deb         
-      - name: Archive build
-        uses: actions/upload-artifact@v2
+          name: App-App.log
+          path: /Users/runner/Library/Logs/gym/ App-App.log
+
+      - name: Make Artefact
+        run: |
+          zip artefact.zip App.ipa App.app.dSYM.zip
+      - uses: actions/upload-artifact@v1
         with:
-          name: npm-build
-          path: |
-            build
-            android
+          name: artefact.zip
+          path: ./artefact.zip
+
       # Don't need to explicitly unzip
 
 
